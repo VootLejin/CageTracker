@@ -23,7 +23,9 @@
             android:id ="@+id/tableDisplay"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+
             tools:layout_editor_absoluteY="8dp">
+
 
 
 

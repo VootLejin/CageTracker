@@ -24,13 +24,17 @@ public class CageDisplayLayout extends LinearLayout {
 
     private CageDisplayLayout(Context context) {
         super(context);
+        //setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
     }
 
 
     public CageDisplayLayout(Context context, CageModel cage){
         this(context);
+        setPadding(10, 0, 10, 0);
+
         _textHolder = new LinearLayout(context);
-        _textHolder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+        _textHolder.setLayoutParams(new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        _textHolder.setPadding(20,0,20,0);
 
         cageModel = cage;
         cagePicture = new ImageView(context);
@@ -38,11 +42,15 @@ public class CageDisplayLayout extends LinearLayout {
         cagePicture.setLayoutParams(new LayoutParams(_testWidth, _testWidth));
 
         cageName = new TextView(context);
-        cageName.setText(java.lang.Integer.toString(cageModel.ID));
+        String idText = "ID: " + java.lang.Integer.toString(cageModel.ID);
+        cageName.setText(idText);
 
         lastOutView = new TextView(context);
         SimpleDateFormat sdf = new SimpleDateFormat("E", Locale.ENGLISH);
-        lastOutView.setText(sdf.format(cageModel.lastGoneOut));
+        String lastOutText = sdf.format(cageModel.lastGoneOut);
+        lastOutView.setText(lastOutText);
+
+        lastOutView.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         lastOutView.setGravity(Gravity.RIGHT);
 
 

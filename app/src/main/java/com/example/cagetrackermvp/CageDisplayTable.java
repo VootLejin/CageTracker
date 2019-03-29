@@ -1,6 +1,7 @@
 package com.example.cagetrackermvp;
 
 import android.content.Context;
+import android.support.constraint.ConstraintLayout;
 import android.util.AttributeSet;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -17,6 +18,7 @@ public class CageDisplayTable extends TableLayout {
 
     public CageDisplayTable(Context context) {
         super(context);
+
     }
 
     public CageDisplayTable (Context context, AttributeSet attrs){
@@ -31,6 +33,7 @@ public class CageDisplayTable extends TableLayout {
     private void addDisplayToRows(CageDisplayLayout cageDisplay) {
         if (rows.isEmpty() || currentRowIndex == 0){
             TableRow newRow = new TableRow(getContext());
+            newRow.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
             rows.add(newRow);
             this.addView(newRow);
         }
