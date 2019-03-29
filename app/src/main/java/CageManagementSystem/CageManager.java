@@ -66,4 +66,10 @@ public class CageManager {
             cage.hasGoneOutToday = false;
         }
     }
+
+    public CageModel CreateCage() {
+        CageModel newCage = new CageModel(_cages.size());
+        AddCage(newCage);
+        return newCage;
+    }
 }

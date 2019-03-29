@@ -46,5 +46,8 @@ public class DomainFacade {
 
     }
 
+    public CageModel CreateCage(){
+        return _cageManager.CreateCage();
+    }
 
 }
