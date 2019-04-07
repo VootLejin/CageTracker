@@ -3,6 +3,8 @@ package com.example.cagetrackermvp;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.DialogFragment;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
@@ -12,6 +14,8 @@ import android.widget.TableRow;
 
 import CageManagementSystem.CageModel;
 import CageManagementSystem.DomainFacade;
+import CageManagementSystem.FerretKeeperContracts.DepositCageInPlayAreaResponse;
+import CageManagementSystem.PlayAreaModel;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
 
     private DomainFacade _domainFacade = new DomainFacade();
     private int _testNumberOfCages = 16;
+    private int _testNumberOfPlayAreas = 1;
+    public PlayAreaModel myPlayArea;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +51,13 @@ public class MainActivity extends AppCompatActivity {
 
 
         InitializeCageTable();
+        InitializePlayAreas();
+    }
+
+    private void InitializePlayAreas() {
+        for(int i = 0; i < _testNumberOfPlayAreas; i++){
+            myPlayArea = _domainFacade.CreatePlayArea();
+        }
     }
 
     private void InitializeCageTable() {
@@ -52,9 +65,30 @@ public class MainActivity extends AppCompatActivity {
         for(int i = 0; i < _testNumberOfCages; i++){
             CageModel cage = _domainFacade.CreateCage();
             cageDisplayLayout = new CageDisplayLayout(this, cage);
+            SetupOnClickForCageLayout(cageDisplayLayout);
             displayTable.addCageDisplay(cageDisplayLayout);
         }
     }
+
+    private void SetupOnClickForCageLayout(CageDisplayLayout cageDisplayLayout) {
+        cageDisplayLayout.setOnClickListener(onClickListener);
+    }
+
+    private View.OnClickListener onClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            CageDisplayLayout cageDisplay = (CageDisplayLayout) v;
+
+            if(cageDisplay.cageModel.hasGoneOutToday){
+
+                 _domainFacade.PikcupCageFromPlayArea(cageDisplay.cageModel, myPlayArea);
+            }
+            DepositCageInPlayAreaResponse response = _domainFacade.DepositCageInPlayArea(cageDisplay.cageModel, myPlayArea);
+
+            DialogFragment ferretFragment = new FerretBookPlayAreaDiaglogFragment(response, cageDisplay.cageModel);
+            ferretFragment.show(getSupportFragmentManager(), "ferretAlert");
+        }
+    };
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

@@ -20,7 +20,7 @@ public class CageDisplayLayout extends LinearLayout {
     public TextView lastOutView;
     private LinearLayout _textHolder;
 
-    private int _testWidth = 350;
+    private int _testWidth = 150;
 
     private CageDisplayLayout(Context context) {
         super(context);

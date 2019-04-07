@@ -8,7 +8,7 @@ import CageManagementSystem.FerretKeeperContracts.DepositCageInPlayAreaResponse;
 public class CageManager {
     private List<CageModel> _cages;
     private List<PlayAreaModel> _playAreas;
-    private int timeToWaitInMinutes = 5;
+    private int timeToWaitInMinutes = 1;
     private int timeToWaitInSeconds = timeToWaitInMinutes * 60;
     private int timeToWaitInMilliSeconds = timeToWaitInSeconds * 1000;
 
@@ -71,5 +71,11 @@ public class CageManager {
         CageModel newCage = new CageModel(_cages.size());
         AddCage(newCage);
         return newCage;
+    }
+
+    public PlayAreaModel CreatePlayArea(){
+        PlayAreaModel newPlayArea = new PlayAreaModel();
+        AddPlayArea(newPlayArea);
+        return  newPlayArea;
     }
 }
