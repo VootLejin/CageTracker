@@ -72,6 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void SetupOnClickForCageLayout(CageDisplayLayout cageDisplayLayout) {
         cageDisplayLayout.setOnClickListener(onClickListener);
+        // Booka Look at this!
     }
 
     private View.OnClickListener onClickListener = new View.OnClickListener() {
